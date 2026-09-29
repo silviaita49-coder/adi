@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* OVERRIDE OKLCH COLORS ON PRINTABLE DOCUMENTS TO PREVENT HTML2CANVAS CRASHES */
+.spj-printable-page,
+#doc-kuitansi-print,
+#doc-spb-print,
+#doc-bast-print,
+#doc-nota-print,
+#doc-sptjm-print {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+.spj-printable-page *,
+#doc-kuitansi-print *,
+#doc-spb-print *,
+#doc-bast-print *,
+#doc-nota-print *,
+#doc-sptjm-print * {
+  border-color: #000000;
+}
+
+.spj-printable-page table,
+#doc-kuitansi-print table,
+#doc-spb-print table,
+#doc-bast-print table,
+#doc-nota-print table,
+#doc-sptjm-print table {
+  border-collapse: collapse !important;
+  border-color: #000000 !important;
+}
+
+.spj-printable-page th,
+.spj-printable-page td,
+#doc-kuitansi-print th,
+#doc-kuitansi-print td,
+#doc-spb-print th,
+#doc-spb-print td,
+#doc-bast-print th,
+#doc-bast-print td,
+#doc-nota-print th,
+#doc-nota-print td,
+#doc-sptjm-print th,
+#doc-sptjm-print td {
+  border-color: #000000 !important;
+}
+
+.spj-printable-page .bg-slate-100,
+#doc-kuitansi-print .bg-slate-100,
+#doc-spb-print .bg-slate-100,
+#doc-bast-print .bg-slate-100,
+#doc-nota-print .bg-slate-100,
+#doc-sptjm-print .bg-slate-100 {
+  background-color: #f1f5f9 !important;
+}
+
+.spj-printable-page .bg-slate-50,
+#doc-kuitansi-print .bg-slate-50,
+#doc-spb-print .bg-slate-50,
+#doc-bast-print .bg-slate-50,
+#doc-nota-print .bg-slate-50,
+#doc-sptjm-print .bg-slate-50 {
+  background-color: #f8fafc !important;
+}
+
+.spj-printable-page .text-slate-700,
+.spj-printable-page .text-slate-600,
+.spj-printable-page .text-slate-500 {
+  color: #334155 !important;
+}
+
+.spj-printable-page .text-emerald-700,
+.spj-printable-page .text-emerald-800 {
+  color: #065f46 !important;
+}
+
+.spj-printable-page .text-red-600 {
+  color: #dc2626 !important;
+}
+
+.spj-printable-page .border-red-600 {
+  border-color: #dc2626 !important;
+}
+
+/* PRINT MEDIA STYLES FOR OFFICIAL A4 DOCUMENTS */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 12mm 8mm 12mm;
+  }
+
+  html, body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide app navigation and controls when printing */
+  header,
+  aside,
+  button,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Ensure each official document prints on its own clean A4 page */
+  .spj-printable-page {
+    display: block !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 auto 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Last page does not need trailing page break */
+  .spj-printable-page:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+
+  /* Single doc mode */
+  body.print-single-mode .spj-printable-page:not(.print-active-doc) {
+    display: none !important;
+  }
+}
